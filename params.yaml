@@ -6,11 +6,9 @@ features:
   scaler: standard
 
 train:
-  model_type: random_forest
-  n_estimators: 200
-  max_depth: 12
   test_size: 0.2
   random_state: 42
 
 eval:
+  cv_folds: 5
   metrics: [rmse, mae, r2]
