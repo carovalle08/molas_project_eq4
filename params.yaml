@@ -1,5 +1,5 @@
 data:
-  raw_path: data/raw/bike_sharing_modified.csv
+  raw_path: data/raw/bike_sharing_modified_dvc.csv
   processed_path: data/processed/train.parquet
 
 features:
