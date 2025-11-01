@@ -1,0 +1,29 @@
+stages:
+  preprocess:
+    cmd: python -m src.features.build_features --in ${data.raw_path} --out ${data.processed_path} --scaler ${features.scaler}
+    deps:
+      - src/features/build_features.py
+      - params.yaml
+      - ${data.raw_path}
+    outs:
+      - ${data.processed_path}
+
+  train:
+    cmd: python -m src.models.train_model --data ${data.processed_path} --params params.yaml
+    deps:
+      - src/models/train_model.py
+      - params.yaml
+      - ${data.processed_path}
+    outs:
+      - models/model.pkl
+
+  evaluate:
+    cmd: python -m src.models.predict_model --data ${data.processed_path} --model models/model.pkl --params params.yaml
+    deps:
+      - src/models/predict_model.py
+      - params.yaml
+      - models/model.pkl
+      - ${data.processed_path}
+    outs:
+      - reports/metrics.json
+      - reports/figures/
